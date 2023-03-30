@@ -15,3 +15,13 @@ export const isAuthenticated = asyncError(
         next()
     }
 )
+
+export const isAdmin = asyncError(
+    async (req,res,next) => {
+    
+        if(req.user.role !== "admin") 
+            return next(new ErrorHandler("admin access required", 401))
+        
+        next()
+    }
+)
