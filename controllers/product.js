@@ -35,15 +35,17 @@ export const getAdminProducts = asyncError(
     async (req,res,next) => {
         const products = await Product.find({}).populate("category")
 
-        const outOfStock = products.filter((item)=>{
-            item.stock === 0
-        })
+        let outOfStock = 0;
+
+        for(let i=0; i<products.length; i++){
+            if(products[i].stock===0) outOfStock++;
+        }
 
         res.status(200).json({
             success: true,
             products,
-            outOfStock: outOfStock.length,
-            inStock: products.length-outOfStock.length
+            outOfStock: outOfStock,
+            inStock: products.length-outOfStock
         })
     }
 )
