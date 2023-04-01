@@ -50,7 +50,7 @@ export const getAdminProducts = asyncError(
 
 export const getProductDetails = asyncError(
     async (req,res,next) => {
-        const product = await Product.findById(req.params.id).populate("category")
+        const product = await Product.findById(req.params.id).populate("categories")
         console.log('product', product)
         if(!product) return next(new ErrorHandler("Product not found", 404))
 
